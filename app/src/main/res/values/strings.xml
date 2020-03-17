@@ -4,4 +4,15 @@
     <string name="iniciar_sesion">INICIAR SESIÓN</string>
     <string name="usuario">Usuario</string>
     <string name="monipump">TODO</string>
+    <string name="disenada_por">Diseñada por:</string>
+    <string name="lenin_pardo">Lenin Pardo</string>
+    <string name="angel_encalada">Ángel Encalada</string>
+    <string name="correo_lenin">lapardo@espol.edu.ec</string>
+    <string name="correo_angel">angaenca@espol.edu.ec</string>
+    <string name="melacorp">TODO</string>
+    <string name="acerca_de">ACERCA DE</string>
+    <string name="title_activity_vista_general">vistaGeneral</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
