@@ -18,4 +18,10 @@
     <string name="estaciones_de_bombeo">Estaciones de Bombeo</string>
     <string name="estacion_1">Estación 1</string>
     <string name="todo">TODO</string>
+    <string name="datos_historicos">DATOS HISTÓRICOS</string>
+    <string name="nombre_estacion">TextView</string>
+    <string name="tiempo">TextView</string>
+    <string name="texto">horas operando en el último día</string>
+    <string name="tiempo_real">TIEMPO REAL</string>
+    <string name="todo1">TODO</string>
 </resources>
