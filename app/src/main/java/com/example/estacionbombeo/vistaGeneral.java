@@ -9,6 +9,6 @@ public class vistaGeneral extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vista_general2);
+        setContentView(R.layout.activity_vista_general);
     }
 }

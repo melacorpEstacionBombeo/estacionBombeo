@@ -17,8 +17,6 @@ public class pantallaInicial extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_pantalla_inicial);
 
-
-
         Button iniciar_sesion = findViewById(R.id.button2);
         iniciar_sesion.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
