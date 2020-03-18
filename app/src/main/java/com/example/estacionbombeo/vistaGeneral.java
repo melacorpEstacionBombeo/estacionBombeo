@@ -12,6 +12,7 @@ public class vistaGeneral extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_vista_general);
     }
 
@@ -23,5 +24,9 @@ public class vistaGeneral extends AppCompatActivity {
         intent.putExtra(extraNombreEstacion,nombreEstacion);
         intent.putExtra(extraTiempo,tiempo);
         startActivity(intent);
+    }
+
+    public void cargarBombas(){
+
     }
 }
