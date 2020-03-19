@@ -12,7 +12,7 @@ public class vistaGeneral extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        cargarBombas();
         setContentView(R.layout.activity_vista_general);
     }
 
@@ -27,6 +27,11 @@ public class vistaGeneral extends AppCompatActivity {
     }
 
     public void cargarBombas(){
+        //llamar a base de datos y pedir numero total de ids
+        String[] ids;
+        for(String id: ids){
+            //por cada id de bomba anade un objeto el layout contenedor de vista general
 
+        }
     }
 }
