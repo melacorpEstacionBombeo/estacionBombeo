@@ -40,8 +40,8 @@ public class vistaGeneral extends AppCompatActivity {
         //llamar a base de datos y pedir numero total de ids
         ArrayList<String> ids=new ArrayList<>();
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/melacorp202","melacorp","melacorp");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/melacorp2020","melacorp","melacorp");
             Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select distinct id from bomba");
             while(rs.next())
