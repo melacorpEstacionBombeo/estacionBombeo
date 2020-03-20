@@ -38,9 +38,18 @@ public class vistaGeneral extends AppCompatActivity {
 
     public void cargarBombas(){
         //llamar a base de datos y pedir numero total de ids
-        String[] ids;
+        ArrayList<String> ids=new ArrayList<>();
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/melacorp202","melacorp","melacorp");
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery("select distinct id from bomba");
+            while(rs.next())
+                ids.add(rs.getString(1));
+            con.close();
+        }catch(Exception e){ System.out.println(e);}
 
-        //recuperar linearlayout contenedor
+    //recuperar linearlayout contenedor
         LinearLayout contenedor = (LinearLayout) findViewById(R.id.contenedor_bombas);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for(final String id: ids){
@@ -50,6 +59,7 @@ public class vistaGeneral extends AppCompatActivity {
             final Button boton_bomba=(Button) bomba_view.findViewById(R.id.bomba);
             //agrgar llamada a la activity registro bomba
             boton_bomba.setOnClickListener(new View.OnClickListener() {
+
                 public void onClick(View v) {
                     // Code here executes on main thread after user presses button
                     registroBomba(id);
