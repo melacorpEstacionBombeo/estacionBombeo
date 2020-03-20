@@ -6,16 +6,21 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class vistaGeneral extends AppCompatActivity {
     public static final String extraNombreEstacion="com.example.application.example.extraNombreEstacion";
     public static final String extraTiempo="com.example.application.example.extraTiempo";
+    //array con los registros de cada bomba
+    private ArrayList<View> registros_bomba=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +30,9 @@ public class vistaGeneral extends AppCompatActivity {
         cargarBombas();
     }
 
-    public void registroBomba(){
-        String nombreEstacion="holaaa";
-        Integer tiempo=12354;
-
+    public void registroBomba(String id){
         Intent intent = new Intent(this,registro_bomba.class);
-        intent.putExtra(extraNombreEstacion,nombreEstacion);
-        intent.putExtra(extraTiempo,tiempo);
+        intent.putExtra("id",id);
         startActivity(intent);
     }
 
@@ -42,9 +43,19 @@ public class vistaGeneral extends AppCompatActivity {
         //recuperar linearlayout contenedor
         LinearLayout contenedor = (LinearLayout) findViewById(R.id.contenedor_bombas);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        for(String id: ids){
+        for(final String id: ids){
             //por cada id de bomba anade un objeto el layout contenedor de vista general
-
+            View bomba_view = inflater.inflate(R.layout.elemento_bomba, null);
+            registros_bomba.add(bomba_view);
+            final Button boton_bomba=(Button) bomba_view.findViewById(R.id.bomba);
+            //agrgar llamada a la activity registro bomba
+            boton_bomba.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // Code here executes on main thread after user presses button
+                    registroBomba(id);
+                }
+            });
+            contenedor.addView(bomba_view);
         }
     }
 }

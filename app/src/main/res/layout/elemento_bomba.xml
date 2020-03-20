@@ -123,7 +123,7 @@
         app:srcCompat="@drawable/off" />
 
     <TextView
-        android:id="@+id/id_bomba"
+        android:id="@+id/etiqueta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bomba"
@@ -137,4 +137,15 @@
         android:layout_marginEnd="11dp"
         android:layout_marginRight="11dp"
         android:text="Bomba" />
+
+    <TextView
+        android:id="@+id/id_bomba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/etiqueta"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/etiqueta"
+        android:layout_toRightOf="@+id/etiqueta" />
 </RelativeLayout>
