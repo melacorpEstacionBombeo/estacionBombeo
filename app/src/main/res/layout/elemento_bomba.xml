@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/bomba"
+        android:layout_width="84dp"
+        android:layout_height="85dp"
+        android:background="@drawable/pump" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="9dp"
+        android:layout_toEndOf="@+id/bomba"
+        android:layout_toRightOf="@+id/bomba"
+        android:text="Status" />
+
+    <TextView
+        android:id="@+id/alarma_corriente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/status"
+        android:layout_toRightOf="@+id/status"
+        android:text="Corriente" />
+
+    <TextView
+        android:id="@+id/alarma_temperatura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/alarma_corriente"
+        android:layout_toRightOf="@+id/alarma_corriente"
+        android:text="Temperatura" />
+
+    <TextView
+        android:id="@+id/alarma_fase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/alarma_temperatura"
+        android:layout_toRightOf="@+id/alarma_temperatura"
+        android:text="Fase" />
+
+    <ImageView
+        android:id="@+id/status_led"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/status"
+        android:layout_alignStart="@+id/status"
+        android:layout_alignLeft="@+id/status"
+        android:layout_alignEnd="@+id/status"
+        android:layout_alignRight="@+id/status"
+        android:layout_marginStart="-4dp"
+        android:layout_marginLeft="-4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="-6dp"
+        android:layout_marginRight="-6dp"
+        app:srcCompat="@drawable/off" />
+
+    <ImageView
+        android:id="@+id/corriente_led"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/alarma_corriente"
+        android:layout_alignStart="@+id/alarma_corriente"
+        android:layout_alignLeft="@+id/alarma_corriente"
+        android:layout_alignEnd="@+id/alarma_corriente"
+        android:layout_alignRight="@+id/alarma_corriente"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        app:srcCompat="@drawable/off" />
+
+    <ImageView
+        android:id="@+id/temperatura_led"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/alarma_temperatura"
+        android:layout_alignStart="@+id/alarma_temperatura"
+        android:layout_alignLeft="@+id/alarma_temperatura"
+        android:layout_alignEnd="@+id/alarma_temperatura"
+        android:layout_alignRight="@+id/alarma_temperatura"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        app:srcCompat="@drawable/off" />
+
+    <ImageView
+        android:id="@+id/fase_led"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/alarma_fase"
+        android:layout_alignStart="@+id/alarma_fase"
+        android:layout_alignLeft="@+id/alarma_fase"
+        android:layout_alignEnd="@+id/alarma_fase"
+        android:layout_alignRight="@+id/alarma_fase"
+        android:layout_marginStart="-6dp"
+        android:layout_marginLeft="-6dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="-14dp"
+        android:layout_marginRight="-14dp"
+        app:srcCompat="@drawable/off" />
+
+    <TextView
+        android:id="@+id/id_bomba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bomba"
+        android:layout_alignEnd="@+id/bomba"
+        android:layout_alignRight="@+id/bomba"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:text="Bomba" />
+</RelativeLayout>
