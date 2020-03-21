@@ -8,7 +8,7 @@
         android:id="@+id/bomba"
         android:layout_width="84dp"
         android:layout_height="85dp"
-        android:background="@drawable/pump" />
+        android:background="@drawable/pump_icon" />
 
     <TextView
         android:id="@+id/status"
