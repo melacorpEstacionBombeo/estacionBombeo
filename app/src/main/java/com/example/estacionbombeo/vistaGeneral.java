@@ -2,6 +2,7 @@ package com.example.estacionbombeo;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,8 @@ public class vistaGeneral extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_general);
         //cargar bombas dinamicamente
-        cargarBombas();
+        GetDBConnection dbc=new GetDBConnection();
+        dbc.execute();
     }
 
     public void registroBomba(String id){
@@ -40,15 +43,17 @@ public class vistaGeneral extends AppCompatActivity {
         //llamar a base de datos y pedir numero total de ids
         ArrayList<String> ids=new ArrayList<>();
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/melacorp2020","melacorp","melacorp");
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            Connection con=DriverManager.getConnection("jdbc:jtds:mysql://db4free.net:3306/melacorp2020","melacorp","melacorp");
             Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select distinct id from bomba");
             while(rs.next())
                 ids.add(rs.getString(1));
             con.close();
         }catch(Exception e){ System.out.println(e);}
-
+        ids.add("1");
+        ids.add("2");
+        ids.add("3");
     //recuperar linearlayout contenedor
         LinearLayout contenedor = (LinearLayout) findViewById(R.id.contenedor_bombas);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,4 +73,14 @@ public class vistaGeneral extends AppCompatActivity {
             contenedor.addView(bomba_view);
         }
     }
+
+    private class GetDBConnection extends AsyncTask<Integer,Void,String>{
+
+        @Override
+        protected String doInBackground(Integer... integers) {
+            cargarBombas();
+            return null;
+        }
+    }
 }
+
