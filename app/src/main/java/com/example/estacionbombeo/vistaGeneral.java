@@ -44,7 +44,7 @@ public class vistaGeneral extends AppCompatActivity {
         ArrayList<String> ids=new ArrayList<>();
         try{
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:jtds:mysql://db4free.net:3306/melacorp2020","melacorp","melacorp");
+            Connection con=DriverManager.getConnection("jtds:mysql://db4free.net:3306/melacorp2020","melacorp","melacorp");
             Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery("select distinct id from bomba");
             while(rs.next())
@@ -74,10 +74,10 @@ public class vistaGeneral extends AppCompatActivity {
         }
     }
 
-    private class GetDBConnection extends AsyncTask<Integer,Void,String>{
+    private class GetDBConnection extends AsyncTask<Void,Void,String>{
 
         @Override
-        protected String doInBackground(Integer... integers) {
+        protected String doInBackground(Void... voids) {
             cargarBombas();
             return null;
         }
