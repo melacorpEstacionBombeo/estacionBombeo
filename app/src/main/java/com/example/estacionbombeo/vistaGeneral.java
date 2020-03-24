@@ -23,6 +23,7 @@ public class vistaGeneral extends AppCompatActivity {
     public static final String extraTiempo="com.example.application.example.extraTiempo";
     //array con los registros de cada bomba
     private ArrayList<View> registros_bomba=new ArrayList<>();
+    private ArrayList<String> ids=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,44 +41,50 @@ public class vistaGeneral extends AppCompatActivity {
     }
 
     public void cargarBombas(){
-        //llamar a base de datos y pedir numero total de ids
-        ArrayList<String> ids=new ArrayList<>();
-        try{
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jtds:mysql://db4free.net:3306/melacorp2020","melacorp","melacorp");
-            Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select distinct id from bomba");
-            while(rs.next())
-                ids.add(rs.getString(1));
-            con.close();
-        }catch(Exception e){ System.out.println(e);}
         ids.add("1");
         ids.add("2");
         ids.add("3");
-    //recuperar linearlayout contenedor
-        LinearLayout contenedor = (LinearLayout) findViewById(R.id.contenedor_bombas);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        for(final String id: ids){
-            //por cada id de bomba anade un objeto el layout contenedor de vista general
-            View bomba_view = inflater.inflate(R.layout.elemento_bomba, null);
-            registros_bomba.add(bomba_view);
-            final Button boton_bomba=(Button) bomba_view.findViewById(R.id.bomba);
-            //agrgar llamada a la activity registro bomba
-            boton_bomba.setOnClickListener(new View.OnClickListener() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //recuperar linearlayout contenedor
+                LinearLayout contenedor = (LinearLayout) findViewById(R.id.contenedor_bombas);
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                for(final String id: ids){
+                    //por cada id de bomba anade un objeto el layout contenedor de vista general
+                    View bomba_view = inflater.inflate(R.layout.elemento_bomba, null);
+                    registros_bomba.add(bomba_view);
+                    final Button boton_bomba=(Button) bomba_view.findViewById(R.id.bomba);
+                    //agrgar llamada a la activity registro bomba
+                    boton_bomba.setOnClickListener(new View.OnClickListener() {
 
-                public void onClick(View v) {
-                    // Code here executes on main thread after user presses button
-                    registroBomba(id);
+                        public void onClick(View v) {
+                            // Code here executes on main thread after user presses button
+                            registroBomba(id);
+                        }
+                    });
+                    contenedor.addView(bomba_view);
                 }
-            });
-            contenedor.addView(bomba_view);
-        }
+
+            }
+        });
+
     }
 
     private class GetDBConnection extends AsyncTask<Void,Void,String>{
 
         @Override
         protected String doInBackground(Void... voids) {
+            //llamar a base de datos y pedir numero total de ids
+            try{
+                Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                Connection con=DriverManager.getConnection("jtds:jdbc:mysql://db4free.net:3306/melacorp2020","melacorp","melacorp");
+                Statement stmt=con.createStatement();
+                ResultSet rs=stmt.executeQuery("select distinct id from bomba");
+                while(rs.next())
+                    ids.add(rs.getString(1));
+                con.close();
+            }catch(Exception e){ System.out.println(e);}
             cargarBombas();
             return null;
         }
