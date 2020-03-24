@@ -1,151 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
         android:id="@+id/bomba"
-        android:layout_width="84dp"
+        android:layout_width="wrap_content"
         android:layout_height="85dp"
-        android:background="@drawable/pump_icon" />
+        android:layout_marginTop="8dp"
+        android:background="@drawable/pump_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="9dp"
-        android:layout_toEndOf="@+id/bomba"
-        android:layout_toRightOf="@+id/bomba"
-        android:text="Status" />
+        android:layout_marginTop="16dp"
+        android:text="Status"
+        app:layout_constraintTop_toBottomOf="@+id/etiqueta"
+        tools:layout_editor_absoluteX="53dp" />
 
     <TextView
         android:id="@+id/alarma_corriente"
-        android:layout_width="wrap_content"
+        android:layout_width="59dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_toEndOf="@+id/status"
-        android:layout_toRightOf="@+id/status"
-        android:text="Corriente" />
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:text="Corriente"
+        app:layout_constraintStart_toEndOf="@+id/status"
+        app:layout_constraintTop_toTopOf="@+id/status" />
 
     <TextView
         android:id="@+id/alarma_temperatura"
-        android:layout_width="wrap_content"
+        android:layout_width="82dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="8dp"
-        android:layout_toEndOf="@+id/alarma_corriente"
-        android:layout_toRightOf="@+id/alarma_corriente"
-        android:text="Temperatura" />
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:text="Temperatura"
+        app:layout_constraintStart_toEndOf="@+id/alarma_corriente"
+        app:layout_constraintTop_toTopOf="@+id/alarma_corriente" />
 
     <TextView
         android:id="@+id/alarma_fase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/alarma_temperatura"
-        android:layout_toRightOf="@+id/alarma_temperatura"
-        android:text="Fase" />
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:text="Fase"
+        app:layout_constraintStart_toEndOf="@+id/alarma_temperatura"
+        app:layout_constraintTop_toTopOf="@+id/alarma_temperatura" />
 
     <ImageView
         android:id="@+id/status_led"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/status"
-        android:layout_alignStart="@+id/status"
-        android:layout_alignLeft="@+id/status"
-        android:layout_alignEnd="@+id/status"
-        android:layout_alignRight="@+id/status"
         android:layout_marginStart="-4dp"
         android:layout_marginLeft="-4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="-6dp"
         android:layout_marginRight="-6dp"
+        app:layout_constraintEnd_toEndOf="@+id/status"
+        app:layout_constraintLeft_toLeftOf="@+id/status"
+        app:layout_constraintRight_toRightOf="@+id/status"
+        app:layout_constraintStart_toStartOf="@+id/status"
+        app:layout_constraintTop_toBottomOf="@+id/status"
         app:srcCompat="@drawable/off" />
 
     <ImageView
         android:id="@+id/corriente_led"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/alarma_corriente"
-        android:layout_alignStart="@+id/alarma_corriente"
-        android:layout_alignLeft="@+id/alarma_corriente"
-        android:layout_alignEnd="@+id/alarma_corriente"
-        android:layout_alignRight="@+id/alarma_corriente"
         android:layout_marginStart="6dp"
         android:layout_marginLeft="6dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="3dp"
         android:layout_marginRight="3dp"
+        app:layout_constraintEnd_toEndOf="@+id/alarma_corriente"
+        app:layout_constraintLeft_toLeftOf="@+id/alarma_corriente"
+        app:layout_constraintRight_toRightOf="@+id/alarma_corriente"
+        app:layout_constraintStart_toStartOf="@+id/alarma_corriente"
+        app:layout_constraintTop_toBottomOf="@+id/alarma_corriente"
         app:srcCompat="@drawable/off" />
 
     <ImageView
         android:id="@+id/temperatura_led"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/alarma_temperatura"
-        android:layout_alignStart="@+id/alarma_temperatura"
-        android:layout_alignLeft="@+id/alarma_temperatura"
-        android:layout_alignEnd="@+id/alarma_temperatura"
-        android:layout_alignRight="@+id/alarma_temperatura"
         android:layout_marginStart="14dp"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/alarma_temperatura"
+        app:layout_constraintLeft_toLeftOf="@+id/alarma_temperatura"
+        app:layout_constraintRight_toRightOf="@+id/alarma_temperatura"
+        app:layout_constraintStart_toStartOf="@+id/alarma_temperatura"
+        app:layout_constraintTop_toBottomOf="@+id/alarma_temperatura"
         app:srcCompat="@drawable/off" />
 
     <ImageView
         android:id="@+id/fase_led"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/alarma_fase"
-        android:layout_alignStart="@+id/alarma_fase"
-        android:layout_alignLeft="@+id/alarma_fase"
-        android:layout_alignEnd="@+id/alarma_fase"
-        android:layout_alignRight="@+id/alarma_fase"
         android:layout_marginStart="-6dp"
         android:layout_marginLeft="-6dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="-14dp"
         android:layout_marginRight="-14dp"
+        app:layout_constraintEnd_toEndOf="@+id/alarma_fase"
+        app:layout_constraintLeft_toLeftOf="@+id/alarma_fase"
+        app:layout_constraintRight_toRightOf="@+id/alarma_fase"
+        app:layout_constraintStart_toStartOf="@+id/alarma_fase"
+        app:layout_constraintTop_toBottomOf="@+id/alarma_fase"
         app:srcCompat="@drawable/off" />
 
     <TextView
         android:id="@+id/etiqueta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bomba"
-        android:layout_alignEnd="@+id/bomba"
-        android:layout_alignRight="@+id/bomba"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
-        android:text="Bomba" />
+        android:layout_marginTop="24dp"
+        android:text="Bomba"
+        app:layout_constraintEnd_toEndOf="@+id/bomba"
+        app:layout_constraintLeft_toLeftOf="@+id/bomba"
+        app:layout_constraintStart_toStartOf="@+id/bomba"
+        app:layout_constraintTop_toBottomOf="@+id/bomba" />
 
     <TextView
         android:id="@+id/id_bomba"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/etiqueta"
         android:layout_marginStart="9dp"
         android:layout_marginLeft="9dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/etiqueta"
-        android:layout_toRightOf="@+id/etiqueta" />
-</RelativeLayout>
+        app:layout_constraintLeft_toRightOf="@+id/etiqueta"
+        app:layout_constraintStart_toEndOf="@+id/etiqueta"
+        app:layout_constraintTop_toTopOf="@+id/etiqueta" />
+</androidx.constraintlayout.widget.ConstraintLayout>

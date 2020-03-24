@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -44,16 +45,20 @@ public class vistaGeneral extends AppCompatActivity {
         ids.add("1");
         ids.add("2");
         ids.add("3");
+        ids.add("4");
+        ids.add("5");
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 //recuperar linearlayout contenedor
                 LinearLayout contenedor = (LinearLayout) findViewById(R.id.contenedor_bombas);
+
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 for(final String id: ids){
                     //por cada id de bomba anade un objeto el layout contenedor de vista general
                     View bomba_view = inflater.inflate(R.layout.elemento_bomba, null);
                     registros_bomba.add(bomba_view);
+                    final TextView tv_bomba_id=(TextView) bomba_view.findViewById(R.id.id_bomba);
                     final Button boton_bomba=(Button) bomba_view.findViewById(R.id.bomba);
                     //agrgar llamada a la activity registro bomba
                     boton_bomba.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +68,9 @@ public class vistaGeneral extends AppCompatActivity {
                             registroBomba(id);
                         }
                     });
+                    tv_bomba_id.setText(id);
                     contenedor.addView(bomba_view);
+
                 }
 
             }
