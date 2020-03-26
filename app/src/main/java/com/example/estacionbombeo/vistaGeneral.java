@@ -1,12 +1,14 @@
 package com.example.estacionbombeo;
 
 import androidx.appcompat.app.AppCompatActivity;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -42,11 +44,7 @@ public class vistaGeneral extends AppCompatActivity {
     }
 
     public void cargarBombas(){
-        ids.add("1");
-        ids.add("2");
-        ids.add("3");
-        ids.add("4");
-        ids.add("5");
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -83,15 +81,38 @@ public class vistaGeneral extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             //llamar a base de datos y pedir numero total de ids
-            try{
-                Class.forName("net.sourceforge.jtds.jdbc.Driver");
-                Connection con=DriverManager.getConnection("jtds:jdbc:mysql://db4free.net:3306/melacorp2020","melacorp","melacorp");
+            /*try{
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                Connection con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/melacorp2020?characterEncoding=utf8","melacorp","melacorp");
                 Statement stmt=con.createStatement();
                 ResultSet rs=stmt.executeQuery("select distinct id from bomba");
                 while(rs.next())
                     ids.add(rs.getString(1));
                 con.close();
-            }catch(Exception e){ System.out.println(e);}
+            }catch(Exception e){ System.out.println(e);}*/
+            try {
+                System.out.println("1");
+                URL url = new URL("https://waning-afternoons.000webhostapp.com/vista_general2.php");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                System.out.println("2");
+                StringBuilder sb = new StringBuilder();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                System.out.println("3");
+                String json;
+                while ((json = bufferedReader.readLine()) != null) {
+                    sb.append(json + "\n");
+                }
+                json=sb.toString().trim();
+                JSONArray jsonArray = new JSONArray(json);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    ids.add(obj.getString("id") );
+                }
+                System.out.println("4");
+            } catch (Exception e) {
+                System.out.println("fallo al conectar con api");;
+            }
             cargarBombas();
             return null;
         }
