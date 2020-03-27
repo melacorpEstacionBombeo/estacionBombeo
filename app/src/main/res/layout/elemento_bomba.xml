@@ -20,10 +20,12 @@
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
         android:text="Status"
-        app:layout_constraintTop_toBottomOf="@+id/etiqueta"
-        tools:layout_editor_absoluteX="53dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etiqueta" />
 
     <TextView
         android:id="@+id/alarma_corriente"
@@ -140,4 +142,13 @@
         app:layout_constraintLeft_toRightOf="@+id/etiqueta"
         app:layout_constraintStart_toEndOf="@+id/etiqueta"
         app:layout_constraintTop_toTopOf="@+id/etiqueta" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/etiqueta"
+        app:layout_constraintStart_toStartOf="@+id/etiqueta"
+        app:layout_constraintTop_toBottomOf="@+id/etiqueta" />
 </androidx.constraintlayout.widget.ConstraintLayout>
