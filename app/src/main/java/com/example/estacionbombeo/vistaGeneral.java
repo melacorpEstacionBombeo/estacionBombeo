@@ -2,21 +2,15 @@ package com.example.estacionbombeo;
 
 import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
@@ -27,19 +21,20 @@ public class vistaGeneral extends AppCompatActivity {
     public static final String extraTiempo="com.example.application.example.extraTiempo";
     //array con los registros de cada bomba
     private ArrayList<TuplaBomba> registros_bomba=new ArrayList<>();
-    private GetDBConnection dbc;
+    private Boolean isCancelled;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_general);
         //cargar bombas dinamicamente
-        dbc=new GetDBConnection();
-        dbc.execute();
+        isCancelled=false;
+        ActualizarDatosThread dbc=new ActualizarDatosThread();
+        dbc.start();
     }
 
     @Override
     public void onDestroy() {
-        dbc.cancel(true);
+        isCancelled=true;
         super.onDestroy();
     }
 
@@ -73,13 +68,15 @@ public class vistaGeneral extends AppCompatActivity {
                     contenedor.addView(bomba_view);
 
                 }
-
+                View progressBar=findViewById(R.id.progressBar);
+                ViewGroup vg = (ViewGroup)(progressBar.getParent());
+                vg.removeView(progressBar);
             }
         });
 
     }
 
-    private class GetDBConnection extends AsyncTask<Void,Void,String>{
+    /*private class GetDBConnection extends AsyncTask<Void,Void,String>{
 
         @Override
         protected String doInBackground(Void... voids) {
@@ -138,6 +135,64 @@ public class vistaGeneral extends AppCompatActivity {
 
         }
 
+    }*/
+
+    private class ActualizarDatosThread extends Thread{
+        @Override
+        public void run(){
+            while (true) {
+                if ( isCancelled )
+                    break;
+                if(registros_bomba.isEmpty()) {
+                    JSONArray jsonArray = (new DbResource()).getResourceURL("vista_general2.php");
+                    try {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject obj = jsonArray.getJSONObject(i);
+                            registros_bomba.add(new TuplaBomba(obj.getString("id"),null));
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    cargarBombas();
+                }else {
+                    actualizarStatusBomba();
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+
+        private void actualizarStatusBomba(){
+            for(TuplaBomba tb:registros_bomba){
+                JSONArray jsonArray = (new DbResource()).getResourceURL("vista_general.php?id="+tb.id);
+                try {
+                    JSONObject obj = jsonArray.getJSONObject(0);
+                    int status=obj.getInt("status");
+                    int alarma_corriente=obj.getInt("alarma_corriente");
+                    int alarma_temperatura=obj.getInt("alarma_temperatura");
+                    int alarma_fase=obj.getInt("alarma_fase");
+                    String time=obj.getString("time");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((ImageView) tb.v.findViewById(R.id.status_led)).setImageResource(status==1?R.drawable.on:R.drawable.off);
+                            ((ImageView) tb.v.findViewById(R.id.temperatura_led)).setImageResource(alarma_temperatura==1?R.drawable.on:R.drawable.off);
+                            ((ImageView) tb.v.findViewById(R.id.fase_led)).setImageResource(alarma_fase==1?R.drawable.on:R.drawable.off);
+                            ((ImageView) tb.v.findViewById(R.id.corriente_led)).setImageResource(alarma_corriente==1?R.drawable.on:R.drawable.off);
+                            ((TextView) tb.v.findViewById(R.id.time)).setText(time);
+                        }
+                    });
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
     }
 
     private class TuplaBomba{
