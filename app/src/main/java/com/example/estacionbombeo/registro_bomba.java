@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class registro_bomba extends AppCompatActivity {
@@ -22,5 +24,12 @@ public class registro_bomba extends AppCompatActivity {
 
         textView1.setText(nombreEstacion);
         textView2.setText(tiempo);
+        Button boton_tiempo_real=(Button) findViewById(R.id.button3);
+        boton_tiempo_real.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent activity2Intent = new Intent(getApplicationContext(), TiempoReal.class);
+                startActivity(activity2Intent);
+            }
+        });
     }
 }

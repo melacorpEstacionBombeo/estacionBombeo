@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +23,7 @@ public class vistaGeneral extends AppCompatActivity {
     private Boolean isCancelled;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("---ON CREATE---");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_general);
         //cargar bombas dinamicamente
@@ -34,8 +34,37 @@ public class vistaGeneral extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
+        System.out.println("---ON DESTROY---");
         isCancelled=true;
         super.onDestroy();
+    }
+
+    @Override
+    public void onStart() {
+        System.out.println("---ON START---");
+        super.onStart();
+
+    }
+
+    @Override
+    public void onResume() {
+        System.out.println("---ON RESUME---");
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        System.out.println("---ON PAUSE---");
+        super.onPause();
+
+    }
+
+    @Override
+    public void onStop() {
+        System.out.println("---ON STOP---");
+        super.onStop();
+
     }
 
     public void registroBomba(String id){
