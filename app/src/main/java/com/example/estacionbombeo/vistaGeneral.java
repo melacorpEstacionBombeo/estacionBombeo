@@ -20,7 +20,9 @@ public class vistaGeneral extends AppCompatActivity {
     public static final String extraTiempo="com.example.application.example.extraTiempo";
     //array con los registros de cada bomba
     private ArrayList<TuplaBomba> registros_bomba=new ArrayList<>();
+    private ActualizarDatosThread dbc;
     private Boolean isCancelled;
+    private Boolean paused;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("---ON CREATE---");
@@ -28,8 +30,10 @@ public class vistaGeneral extends AppCompatActivity {
         setContentView(R.layout.activity_vista_general);
         //cargar bombas dinamicamente
         isCancelled=false;
-        ActualizarDatosThread dbc=new ActualizarDatosThread();
+        paused=false;
+        dbc=new ActualizarDatosThread();
         dbc.start();
+
     }
 
     @Override
@@ -50,11 +54,15 @@ public class vistaGeneral extends AppCompatActivity {
     public void onResume() {
         System.out.println("---ON RESUME---");
         super.onResume();
-
+        synchronized (dbc){
+            dbc.notifyAll();
+        }
+        paused=false;
     }
 
     @Override
     public void onPause() {
+        paused=true;
         System.out.println("---ON PAUSE---");
         super.onPause();
 
@@ -62,6 +70,7 @@ public class vistaGeneral extends AppCompatActivity {
 
     @Override
     public void onStop() {
+        paused=true;
         System.out.println("---ON STOP---");
         super.onStop();
 
@@ -105,73 +114,22 @@ public class vistaGeneral extends AppCompatActivity {
 
     }
 
-    /*private class GetDBConnection extends AsyncTask<Void,Void,String>{
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            //llamar a base de datos y pedir numero total de ids
-            while (true) {
-                if ( isCancelled())
-                    break;
-                if(registros_bomba.isEmpty()) {
-                    JSONArray jsonArray = (new DbResource()).getResourceURL("vista_general2.php");
-                    try {
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject obj = jsonArray.getJSONObject(i);
-                            registros_bomba.add(new TuplaBomba(obj.getString("id"),null));
-                        }
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
-                    cargarBombas();
-                }else {
-                    actualizarStatusBomba();
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-            return null;
-        }
-    }
-
-    private void actualizarStatusBomba(){
-        for(TuplaBomba tb:registros_bomba){
-            JSONArray jsonArray = (new DbResource()).getResourceURL("vista_general.php?id="+tb.id);
-            try {
-                JSONObject obj = jsonArray.getJSONObject(0);
-                int status=obj.getInt("status");
-                int alarma_corriente=obj.getInt("alarma_corriente");
-                int alarma_temperatura=obj.getInt("alarma_temperatura");
-                int alarma_fase=obj.getInt("alarma_fase");
-                String time=obj.getString("time");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((ImageView) tb.v.findViewById(R.id.status_led)).setImageResource(status==1?R.drawable.on:R.drawable.off);
-                        ((ImageView) tb.v.findViewById(R.id.temperatura_led)).setImageResource(alarma_temperatura==1?R.drawable.on:R.drawable.off);
-                        ((ImageView) tb.v.findViewById(R.id.fase_led)).setImageResource(alarma_fase==1?R.drawable.on:R.drawable.off);
-                        ((ImageView) tb.v.findViewById(R.id.corriente_led)).setImageResource(alarma_corriente==1?R.drawable.on:R.drawable.off);
-                        ((TextView) tb.v.findViewById(R.id.time)).setText(time);
-                    }
-                });
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-
-        }
-
-    }*/
-
     private class ActualizarDatosThread extends Thread{
         @Override
         public void run(){
             while (true) {
                 if ( isCancelled )
                     break;
+                if(paused){
+                    synchronized (this){
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
                 if(registros_bomba.isEmpty()) {
                     JSONArray jsonArray = (new DbResource()).getResourceURL("vista_general2.php");
                     try {

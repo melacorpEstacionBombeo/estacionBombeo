@@ -56,6 +56,8 @@ public class CircleDisplay extends View implements OnGestureListener {
     /** the maximum displayable value, depends on the set value */
     private float mMaxValue = 0f;
 
+    private float textval=0f;
+
     private float duracion=3000f;
     /** percent of the maximum width the arc takes */
     private float mValueWidthPercent = 50f;
@@ -126,7 +128,7 @@ public class CircleDisplay extends View implements OnGestureListener {
         mTextPaint.setColor(Color.BLACK);
         mTextPaint.setTextSize(Utils.convertDpToPixel(getResources(), 24f));
 
-        mDrawAnimator = ObjectAnimator.ofFloat(this, "phase", mPhase, 1.0f).setDuration(3000);
+        mDrawAnimator = ObjectAnimator.ofFloat(this, "angulo", mAngle, 0.0f).setDuration(3000);
         mDrawAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
 
         mGestureDetector = new GestureDetector(getContext(), this);
@@ -167,7 +169,7 @@ public class CircleDisplay extends View implements OnGestureListener {
      * @param c
      */
     private void drawText(Canvas c) {
-        c.drawText(mFormatValue.format(mValue * mPhase) + " " + mUnit, getWidth() / 2,
+        c.drawText(mFormatValue.format((mAngle>=270f||mAngle<=0f)?textval:((mAngle/270.0)*mMaxValue*0.75f)) + " " + mUnit, getWidth() / 2,
                 getHeight() / 2 + mTextPaint.descent(), mTextPaint);
     }
 
@@ -221,7 +223,7 @@ public class CircleDisplay extends View implements OnGestureListener {
 
         mArcPaint.setAlpha(255);
 
-        float angle = mAngle * mPhase;
+        float angle = mAngle;
         float ratio=270.0f/255.0f;
         int pasos=(int) Math.floor(angle*(255.0/270.0));
         float angulo_inicio=mStartAngle;
@@ -231,7 +233,7 @@ public class CircleDisplay extends View implements OnGestureListener {
             angulo_inicio+=ratio;
 
         }
-
+        //System.out.println(mPhase);
         // Log.i(LOG_TAG, "CircleBox bounds: " + mCircleBox.toString() +
         // ", Angle: " + angle + ", StartAngle: " + mStartAngle);
     }
@@ -257,19 +259,21 @@ public class CircleDisplay extends View implements OnGestureListener {
      * @param total
      * @param animated
      */
-    public void showValue(float toShow, float total, boolean animated) {
+    public void showValue(float textval,float toShow, float total, boolean animated) {
+        this.textval=textval;
         float ratio=toShow / total;
         float nuevoAng=calcAngle(ratio * 100f);
-        float fase_inicial=(mAngle)/nuevoAng;
+        //float fase_inicial=((nuevoAng<=(0.1*mAngle))?10f:((mAngle)/nuevoAng));
         float duracionParcial=(Math.abs(mAngle-nuevoAng)/360)*duracion;
-        mAngle = nuevoAng;
+        //mAngle = nuevoAng;
         mValue = toShow;
         mMaxValue = total;
 
         if (animated)
-            startAnim(fase_inicial,duracionParcial);
+            startAnim(nuevoAng,duracionParcial);
         else {
-            mPhase = 1f;
+            //mPhase = 1f;
+            mAngle=nuevoAng;
             invalidate();
         }
     }
@@ -295,9 +299,10 @@ public class CircleDisplay extends View implements OnGestureListener {
         return mValue;
     }
 
-    public void startAnim(float fase_inicial,float ratio) {
-        mPhase = fase_inicial;
-        mDrawAnimator.setDuration((long)Math.floor(ratio));
+    public void startAnim(float nuevo,float ratio) {
+        //mPhase = fase_inicial;
+        mDrawAnimator = ObjectAnimator.ofFloat(this, "angulo", mAngle,nuevo).setDuration((long)Math.floor(ratio));
+        //mDrawAnimator.setDuration((long)Math.floor(ratio));
         mDrawAnimator.start();
     }
 
@@ -359,10 +364,10 @@ public class CircleDisplay extends View implements OnGestureListener {
     /**
      * DONT USE THIS METHOD
      *
-     * @param phase
+     * @param angulo
      */
-    public void setPhase(float phase) {
-        mPhase = phase;
+    public void setAngulo(float angulo) {
+        mAngle = angulo;
         invalidate();
     }
 

@@ -8,25 +8,25 @@
     tools:context=".TiempoReal">
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/id_bomba_actual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Tiempo Real"
+        android:text="Bomba"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/hora_bomba_actual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="--"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintEnd_toEndOf="@+id/id_bomba_actual"
+        app:layout_constraintStart_toStartOf="@+id/id_bomba_actual"
+        app:layout_constraintTop_toBottomOf="@+id/id_bomba_actual" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7">
+        app:layout_constraintTop_toBottomOf="@+id/hora_bomba_actual">
 
         <TextView
             android:id="@+id/textView15"

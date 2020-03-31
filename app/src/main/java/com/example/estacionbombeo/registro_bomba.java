@@ -9,12 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class registro_bomba extends AppCompatActivity {
-
+    private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_bomba);
-
+        id=getIntent().getStringExtra("id");
         Intent intent=getIntent();
         String nombreEstacion=intent.getStringExtra(vistaGeneral.extraNombreEstacion);
         String tiempo=intent.getStringExtra(vistaGeneral.extraTiempo);
@@ -28,6 +29,7 @@ public class registro_bomba extends AppCompatActivity {
         boton_tiempo_real.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent activity2Intent = new Intent(getApplicationContext(), TiempoReal.class);
+                activity2Intent.putExtra("id",id);
                 startActivity(activity2Intent);
             }
         });
