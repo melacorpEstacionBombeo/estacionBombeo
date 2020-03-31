@@ -109,6 +109,7 @@ public class vistaGeneral extends AppCompatActivity {
                 View progressBar=findViewById(R.id.progressBar);
                 ViewGroup vg = (ViewGroup)(progressBar.getParent());
                 vg.removeView(progressBar);
+
             }
         });
 
@@ -131,16 +132,18 @@ public class vistaGeneral extends AppCompatActivity {
                 }
 
                 if(registros_bomba.isEmpty()) {
-                    JSONArray jsonArray = (new DbResource()).getResourceURL("vista_general2.php");
                     try {
+                        JSONArray jsonArray = (new DbResource()).getResourceURL("vista_general2.php");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject obj = jsonArray.getJSONObject(i);
                             registros_bomba.add(new TuplaBomba(obj.getString("id"),null));
                         }
+                        if(!registros_bomba.isEmpty())
+                            cargarBombas();
                     }catch(Exception e){
                         e.printStackTrace();
                     }
-                    cargarBombas();
+
                 }else {
                     actualizarStatusBomba();
                     try {
@@ -155,8 +158,9 @@ public class vistaGeneral extends AppCompatActivity {
 
         private void actualizarStatusBomba(){
             for(TuplaBomba tb:registros_bomba){
-                JSONArray jsonArray = (new DbResource()).getResourceURL("vista_general.php?id="+tb.id);
+
                 try {
+                    JSONArray jsonArray = (new DbResource()).getResourceURL("vista_general.php?id="+tb.id);
                     JSONObject obj = jsonArray.getJSONObject(0);
                     int status=obj.getInt("status");
                     int alarma_corriente=obj.getInt("alarma_corriente");

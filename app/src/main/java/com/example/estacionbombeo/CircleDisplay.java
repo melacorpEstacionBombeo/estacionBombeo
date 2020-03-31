@@ -259,8 +259,10 @@ public class CircleDisplay extends View implements OnGestureListener {
      * @param total
      * @param animated
      */
-    public void showValue(float textval,float toShow, float total, boolean animated) {
-        this.textval=textval;
+    public void showValue(float toShow, float total, boolean animated) {
+        this.textval=toShow;
+        toShow=(toShow>=0f)?(toShow<=total?(float)toShow:total):0f;
+        total*=(360.0f/270.0f);
         float ratio=toShow / total;
         float nuevoAng=calcAngle(ratio * 100f);
         //float fase_inicial=((nuevoAng<=(0.1*mAngle))?10f:((mAngle)/nuevoAng));

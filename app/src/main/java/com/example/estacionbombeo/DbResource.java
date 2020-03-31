@@ -9,12 +9,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class DbResource {
-    public JSONArray getResourceURL(String phpApi){
+    public JSONArray getResourceURL(String phpApi) throws Exception {
         URL url = null;
         HttpURLConnection con = null;
         String json=null;
         JSONArray jsonArray=null;
-        try {
+
             url=new URL("https://waning-afternoons.000webhostapp.com/"+phpApi);
             con = (HttpURLConnection) url.openConnection();
             StringBuilder sb = new StringBuilder();
@@ -25,10 +25,12 @@ public class DbResource {
             json = sb.toString().trim();
             jsonArray= new JSONArray(json);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
 
-        }
         return jsonArray;
     }
 }

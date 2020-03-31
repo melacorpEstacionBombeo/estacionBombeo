@@ -22,6 +22,9 @@ public class TiempoReal extends AppCompatActivity {
     private Boolean isCancelled;
     private Boolean paused;
     private ActualizarDatosThread dbc;
+    private final float MAX_CURRENT=600f;
+    private final float MAX_POWER=400f;
+    private final float MAX_TEMP=70f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class TiempoReal extends AppCompatActivity {
         indicador_corriente.setUnit("[Amps]");
 
         // cd.setCustomText(...); // sets a custom array of text
-        indicador_corriente.showValue(0f,0f, 100f, true);
+        indicador_corriente.showValue(0f, 100f, true);
         //indicador de potencia
         indicador_potencia = (CircleDisplay) findViewById(R.id.indicador_potencia);
         indicador_potencia.setAnimDuration(3000);
@@ -60,7 +63,7 @@ public class TiempoReal extends AppCompatActivity {
         indicador_potencia.setUnit("[kW]");
 
         // cd.setCustomText(...); // sets a custom array of text
-        indicador_potencia.showValue(0f,0f, 100f, true);
+        indicador_potencia.showValue(0f,100f, true);
         //indicador de temperatura
         indicador_temperatura = (CircleDisplay) findViewById(R.id.indicador_temperatura);
         indicador_temperatura.setAnimDuration(3000);
@@ -75,7 +78,7 @@ public class TiempoReal extends AppCompatActivity {
         indicador_temperatura.setUnit("[C]");
 
         // cd.setCustomText(...); // sets a custom array of text
-        indicador_temperatura.showValue(0f,0f, 100f, true);
+        indicador_temperatura.showValue(0f,100f, true);
         isCancelled=false;
         paused=false;
         dbc=new ActualizarDatosThread();
@@ -144,8 +147,9 @@ public class TiempoReal extends AppCompatActivity {
 
         private void actualizarStatusBomba(){
 
-                JSONArray jsonArray = (new DbResource()).getResourceURL("tiempo_real.php?id="+id);
+
                 try {
+                    JSONArray jsonArray = (new DbResource()).getResourceURL("tiempo_real.php?id="+id);
                     JSONObject obj = jsonArray.getJSONObject(0);
 
                     double corriente=obj.getDouble("corriente");
@@ -155,9 +159,9 @@ public class TiempoReal extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            indicador_corriente.showValue((float)corriente,(corriente>=0f)?(corriente<=400f?(float)corriente:400f):0f,400*(360.0f/270.0f),true);
-                            indicador_temperatura.showValue((float) temperatura,(temperatura>=0f)?(temperatura<=70f?(float)temperatura:70f):0f,70*(360.0f/270.0f),true);
-                            indicador_potencia.showValue((float)potencia,(potencia>=0f)?(potencia<=10f?(float)potencia:10f):0f,10*(360.0f/270.0f),true);
+                            indicador_corriente.showValue((float)corriente,MAX_CURRENT,true);
+                            indicador_temperatura.showValue((float) temperatura,MAX_TEMP,true);
+                            indicador_potencia.showValue((float)potencia,MAX_POWER,true);
                             hora_actual.setText(time);
                         }
                     });
