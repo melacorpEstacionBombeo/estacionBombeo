@@ -17,13 +17,13 @@ public class registro_bomba extends AppCompatActivity {
         setContentView(R.layout.activity_registro_bomba);
         id=getIntent().getStringExtra("id");
         Intent intent=getIntent();
-        String nombreEstacion=intent.getStringExtra(vistaGeneral.extraNombreEstacion);
-        String tiempo=intent.getStringExtra(vistaGeneral.extraTiempo);
+        //String nombreEstacion=intent.getStringExtra(vistaGeneral.extraNombreEstacion);
+        String tiempo=intent.getStringExtra("horometro");
 
         TextView textView1=(TextView) findViewById(R.id.textView8);
         TextView textView2=(TextView) findViewById(R.id.textView9);
 
-        textView1.setText(nombreEstacion);
+        textView1.setText("Bomba "+id);
         textView2.setText(tiempo);
         Button boton_tiempo_real=(Button) findViewById(R.id.button3);
         boton_tiempo_real.setOnClickListener(new View.OnClickListener() {

@@ -23,6 +23,7 @@ public class vistaGeneral extends AppCompatActivity {
     private ActualizarDatosThread dbc;
     private Boolean isCancelled;
     private Boolean paused;
+    private double horas=0f;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("---ON CREATE---");
@@ -76,9 +77,10 @@ public class vistaGeneral extends AppCompatActivity {
 
     }
 
-    public void registroBomba(String id){
+    public void registroBomba(String id,String horometro){
         Intent intent = new Intent(this,registro_bomba.class);
         intent.putExtra("id",id);
+        intent.putExtra("horometro",horometro);
         startActivity(intent);
     }
 
@@ -99,7 +101,7 @@ public class vistaGeneral extends AppCompatActivity {
                     boton_bomba.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             // Code here executes on main thread after user presses button
-                            registroBomba(tb.id);
+                            registroBomba(tb.id,tb.horometro);
                         }
                     });
                     tv_bomba_id.setText(tb.id);
@@ -167,6 +169,8 @@ public class vistaGeneral extends AppCompatActivity {
                     int alarma_temperatura=obj.getInt("alarma_temperatura");
                     int alarma_fase=obj.getInt("alarma_fase");
                     String time=obj.getString("time");
+                    tb.horometro=Double.toString(obj.getDouble("horometro"));
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -188,6 +192,7 @@ public class vistaGeneral extends AppCompatActivity {
 
     private class TuplaBomba{
         public String id;
+        public String horometro="0.0";
         public View v;
         TuplaBomba(String id, View v){
             this.id=id;
