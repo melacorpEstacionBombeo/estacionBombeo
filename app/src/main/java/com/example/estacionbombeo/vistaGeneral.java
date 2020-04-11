@@ -3,6 +3,8 @@ package com.example.estacionbombeo;
 import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
@@ -169,7 +171,7 @@ public class vistaGeneral extends AppCompatActivity {
                     int alarma_temperatura=obj.getInt("alarma_temperatura");
                     int alarma_fase=obj.getInt("alarma_fase");
                     String time=obj.getString("time");
-                    tb.horometro=Double.toString(obj.getDouble("horometro"));
+                    tb.horometro=Double.toString(Double.parseDouble(new DecimalFormat("####0.00").format(obj.getDouble("horometro")/86400)));
 
                     runOnUiThread(new Runnable() {
                         @Override
