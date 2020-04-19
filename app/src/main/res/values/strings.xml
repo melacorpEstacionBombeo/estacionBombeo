@@ -3,6 +3,22 @@
     <string name="contrasenia">Contraseña</string>
     <string name="iniciar_sesion">INICIAR SESIÓN</string>
     <string name="usuario">Usuario</string>
+    <string-array name="magnitud">
+        <item>Consumo</item>
+        <item>Corriente</item>
+        <item>Temperatura</item>
+        <item>Potencia</item>
+
+        <item>Encendidos</item>
+    </string-array>
+
+    <string-array name="periodo">
+        <item>Ultimo dia</item>
+        <item>Ultima semana</item>
+        <item>Ultimo mes</item>
+        <item>Personalizado</item>
+    </string-array>
+
     <string name="monipump">TODO</string>
     <string name="disenada_por">Diseñada por:</string>
     <string name="lenin_pardo">Lenin Pardo</string>
