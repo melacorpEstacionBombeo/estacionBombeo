@@ -26,9 +26,18 @@ public class registro_bomba extends AppCompatActivity {
         textView1.setText("Bomba "+id);
         textView2.setText(tiempo);
         Button boton_tiempo_real=(Button) findViewById(R.id.button3);
+        Button boton_historicos=(Button) findViewById(R.id.button4);
         boton_tiempo_real.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent activity2Intent = new Intent(getApplicationContext(), TiempoReal.class);
+                activity2Intent.putExtra("id",id);
+                startActivity(activity2Intent);
+            }
+        });
+
+        boton_historicos.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent activity2Intent = new Intent(getApplicationContext(), Historicos.class);
                 activity2Intent.putExtra("id",id);
                 startActivity(activity2Intent);
             }
