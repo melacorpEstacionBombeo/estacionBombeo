@@ -20,6 +20,8 @@
     </string-array>
 
     <string name="monipump">TODO</string>
+    <string name="spinner1">Magnitud</string>
+    <string name="spinner2">Periodo</string>
     <string name="disenada_por">Diseñada por:</string>
     <string name="lenin_pardo">Lenin Pardo</string>
     <string name="angel_encalada">Ángel Encalada</string>
