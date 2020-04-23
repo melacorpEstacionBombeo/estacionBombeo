@@ -45,7 +45,7 @@ public class TiempoReal extends AppCompatActivity {
         indicador_corriente.setDrawInnerCircle(true);
         indicador_corriente.setFormatDigits(1);
         indicador_corriente.setTouchEnabled(false);
-        indicador_corriente.setUnit("[Amps]");
+        indicador_corriente.setUnit("[A]");
 
         // cd.setCustomText(...); // sets a custom array of text
         indicador_corriente.showValue(0f, 100f, true);
@@ -75,7 +75,7 @@ public class TiempoReal extends AppCompatActivity {
         indicador_temperatura.setDrawInnerCircle(true);
         indicador_temperatura.setFormatDigits(1);
         indicador_temperatura.setTouchEnabled(false);
-        indicador_temperatura.setUnit("[C]");
+        indicador_temperatura.setUnit("[ºC]");
 
         // cd.setCustomText(...); // sets a custom array of text
         indicador_temperatura.showValue(0f,100f, true);

@@ -68,7 +68,6 @@ public class Historicos extends AppCompatActivity {
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                             // +1 because January is zero
                             fecha_final=year+"-"+(month+1)+"-"+day;
-
                         }
                     });
                     DatePickerFragment fechaInicial = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
@@ -81,7 +80,7 @@ public class Historicos extends AppCompatActivity {
                         }
                     });
 
-                    fechaInicial.show(getSupportFragmentManager(), "Fecha Inicial");
+                    fechaInicial.show(getSupportFragmentManager(), "Fecha inicial");
 
                 }
             }
@@ -90,7 +89,6 @@ public class Historicos extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-
 
         });
         id=getIntent().getStringExtra("id");
@@ -124,7 +122,6 @@ public class Historicos extends AppCompatActivity {
         YAxis yAxisLeft = lineChart.getAxisLeft();
         yAxisLeft.setGranularity(1f);
 
-
     }
     private void getData(String magnitud_str, String periodo_str){
         entries = new ArrayList<>();
@@ -132,7 +129,6 @@ public class Historicos extends AppCompatActivity {
         int anio=Calendar.getInstance().get(Calendar.YEAR);
         int mes=Calendar.getInstance().get(Calendar.MONTH)+1;
         int dia=Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-
 
         if(magnitud_str.equals("Consumo")){
             units="Kwh";
@@ -160,15 +156,15 @@ public class Historicos extends AppCompatActivity {
             funcion="avg";
         }
 
-        if(periodo_str.equals("Ultimo dia")){
+        if(periodo_str.equals("Último dia")){
             formato="%25Y-%25m-%25d%20%25H";
             fecha_inicio=anio+"-"+mes+"-"+dia+"%2000:00:00";
             fecha_fin=anio+"-"+mes+"-"+dia+"%2023:59:59";
-        }else if(periodo_str.equals("Ultima semana")){
+        }else if(periodo_str.equals("Última semana")){
             formato="%25Y-%25m-%25d";
             fecha_inicio=((mes==1&&dia-7<0)?(anio-1):anio)+"-"+((dia-7<0)?((mes-1==0)?12:mes-1):mes)+"-"+((dia-7<0)?23+dia:dia-7)+"%2000:00:00";
             fecha_fin=anio+"-"+mes+"-"+dia+"%2023:59:59";
-        }else if(periodo_str.equals("Ultimo mes")){
+        }else if(periodo_str.equals("Último mes")){
             formato="%25Y-%25m-%25d";
             fecha_inicio=anio+"-"+mes+"-01%2000:00:00";
             fecha_fin=anio+"-"+mes+"-"+dia+"%2023:59:59";
@@ -199,8 +195,6 @@ public class Historicos extends AppCompatActivity {
                 valueLableMap.put(Integer.parseInt((colx.substring(colx.length()-2,colx.length()))), colx.substring(0,colx.length()-2));
                 //System.out.println(colx+" , "+colx.substring(colx.length()-2,colx.length()-1)+", "+obj.getString("valor"));
             }
-
-
         }catch(Exception e){
             e.printStackTrace();
         }

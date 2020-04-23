@@ -82,8 +82,19 @@ public class vistaGeneral extends AppCompatActivity {
     public void registroBomba(String id,String horometro){
         Intent intent = new Intent(this,registro_bomba.class);
         intent.putExtra("id",id);
-        intent.putExtra("horometro",horometro);
+        intent.putExtra("horometro",tiempo(horometro));
         startActivity(intent);
+    }
+
+    public String tiempo (String seconds){
+        int s= (int) Float.parseFloat(seconds);
+
+        int sec = s % 60;
+        int min = (s / 60)%60;
+        int hours = (s/60)/60;
+
+        return hours + " : " + min + " : " + sec;
+
     }
 
     public void cargarBombas(){
@@ -171,15 +182,15 @@ public class vistaGeneral extends AppCompatActivity {
                     int alarma_temperatura=obj.getInt("alarma_temperatura");
                     int alarma_fase=obj.getInt("alarma_fase");
                     String time=obj.getString("time");
-                    tb.horometro=Double.toString(Double.parseDouble(new DecimalFormat("####0.00").format(obj.getDouble("horometro")/86400)));
+                    tb.horometro=Double.toString(Double.parseDouble(new DecimalFormat("####0.00").format(obj.getDouble("horometro")/1000)));
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             ((ImageView) tb.v.findViewById(R.id.status_led)).setImageResource(status==1?R.drawable.on:R.drawable.off);
-                            ((ImageView) tb.v.findViewById(R.id.temperatura_led)).setImageResource(alarma_temperatura==1?R.drawable.on:R.drawable.off);
-                            ((ImageView) tb.v.findViewById(R.id.fase_led)).setImageResource(alarma_fase==1?R.drawable.on:R.drawable.off);
-                            ((ImageView) tb.v.findViewById(R.id.corriente_led)).setImageResource(alarma_corriente==1?R.drawable.on:R.drawable.off);
+                            ((ImageView) tb.v.findViewById(R.id.temperatura_led)).setImageResource(alarma_temperatura==1?R.drawable.high:R.drawable.off);
+                            ((ImageView) tb.v.findViewById(R.id.fase_led)).setImageResource(alarma_fase==1?R.drawable.high:R.drawable.off);
+                            ((ImageView) tb.v.findViewById(R.id.corriente_led)).setImageResource(alarma_corriente==1?R.drawable.high:R.drawable.off);
                             ((TextView) tb.v.findViewById(R.id.time)).setText(time);
                         }
                     });

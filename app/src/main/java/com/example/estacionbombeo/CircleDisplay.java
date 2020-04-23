@@ -123,10 +123,10 @@ public class CircleDisplay extends View implements OnGestureListener {
         mInnerCirclePaint.setColor(Color.WHITE);
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mTextPaint.setStyle(Style.STROKE);
+        //mTextPaint.setStyle(Style.STROKE);
         mTextPaint.setTextAlign(Align.CENTER);
         mTextPaint.setColor(Color.BLACK);
-        mTextPaint.setTextSize(Utils.convertDpToPixel(getResources(), 24f));
+        mTextPaint.setTextSize(Utils.convertDpToPixel(getResources(), 20f));
 
         mDrawAnimator = ObjectAnimator.ofFloat(this, "angulo", mAngle, 0.0f).setDuration(3000);
         mDrawAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
