@@ -156,15 +156,15 @@ public class Historicos extends AppCompatActivity {
             funcion="avg";
         }
 
-        if(periodo_str.equals("Último dia")){
+        if(periodo_str.equals("Ultimo dia")){
             formato="%25Y-%25m-%25d%20%25H";
             fecha_inicio=anio+"-"+mes+"-"+dia+"%2000:00:00";
             fecha_fin=anio+"-"+mes+"-"+dia+"%2023:59:59";
-        }else if(periodo_str.equals("Última semana")){
+        }else if(periodo_str.equals("Ultima semana")){
             formato="%25Y-%25m-%25d";
             fecha_inicio=((mes==1&&dia-7<0)?(anio-1):anio)+"-"+((dia-7<0)?((mes-1==0)?12:mes-1):mes)+"-"+((dia-7<0)?23+dia:dia-7)+"%2000:00:00";
             fecha_fin=anio+"-"+mes+"-"+dia+"%2023:59:59";
-        }else if(periodo_str.equals("Último mes")){
+        }else if(periodo_str.equals("Ultimo mes")){
             formato="%25Y-%25m-%25d";
             fecha_inicio=anio+"-"+mes+"-01%2000:00:00";
             fecha_fin=anio+"-"+mes+"-"+dia+"%2023:59:59";
